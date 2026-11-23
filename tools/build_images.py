@@ -24,7 +24,7 @@ FULL_MAX = 2000   # lightbox (longest side)
 PROJECTS = [
     dict(slug="jemmia", title="JEMMIA", cats=["jewelry"], tags=["Jewelry", "Campaign"],
          blurb="Campaign imagery for a fine-jewelry house — editorial portraits, product stills and seasonal key visuals.",
-         cover=290, imgs=[238, 239, 240, 242, 244, 246, 248, 250, 251, 253, 254, 257, 261, 266, 267, 270, 283, 286, 290, 292]),
+         cover=242, imgs=[238, 239, 240, 242, 244, 246, 248, 250, 251, 253, 254, 257, 261, 266, 267, 270, 283, 286, 290, 292]),
     dict(slug="hublot", title="HUBLOT", cats=["jewelry", "editorial"], tags=["Watches", "Still life"],
          blurb="Conceptual watch visuals — lava, ash and cracked stone worlds built around each timepiece.",
          cover=54, imgs=[51, 52, 53, 54, 55, 56, 62, 63]),

@@ -116,7 +116,7 @@ window.PROJECTS = [
    "Campaign"
   ],
   "blurb": "Campaign imagery for a fine-jewelry house — editorial portraits, product stills and seasonal key visuals.",
-  "cover": 18,
+  "cover": 3,
   "images": [
    {
     "t": "assets/img/jemmia/01-t.jpg",

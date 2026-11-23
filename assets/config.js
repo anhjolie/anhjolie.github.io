@@ -3,8 +3,8 @@
 // ───────────────────────────────────────────────────────────────
 window.SITE = {
   name: "Thanh Huyen",          // shown in the title, footer, "© Thanh Huyen 2026"
-  nickname: "Jolie",            // small line under the hero title: "call me Jolie"
-  heroLines: ["I’M THANH", "HUYEN"],  // giant hero title, one entry per line (the © follows the last line)
+  nickname: "Jolie",            // used in the About text ("everyone calls me Jolie")
+  heroLines: ["I’M THANH HUYEN"],  // giant hero title, one entry per line (the © follows the last line)
   footWord: "JOLIE",            // giant word cropped at the very bottom of the page
   year: 2026,
   roles: ["Retoucher", "Art Director", "Photographer", "Designer"],

@@ -20,7 +20,6 @@
     return '<span class="ln">' + esc(l) + (i === S.heroLines.length - 1 ? '<span class="c">©</span>' : "") + "</span>";
   }).join("");
   $("#wordmark").setAttribute("aria-label", "I’m " + S.name);
-  $("#alias").textContent = "call me " + S.nickname;
   $("#bigWord").innerHTML = '<span>' + esc(S.footWord) + '</span><span class="c">©</span>';
   var aboutName = $("#aboutName"); if (aboutName) aboutName.textContent = S.name;
   var aboutNick = $("#aboutNick"); if (aboutNick) aboutNick.textContent = S.nickname;
@@ -32,9 +31,7 @@
   if (S.phone) soc.push([S.phone, "tel:" + S.phone.replace(/\s/g, "")]);
   $("#socials").innerHTML = soc.map(function (s) { return '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + "</a></li>"; }).join("");
 
-  /* ── brands: marquee + typographic list ── */
-  var mq = S.brands.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join("");
-  $("#brandTrack").innerHTML = mq + mq;
+  /* ── brands: typographic list ── */
   $("#clients").innerHTML = S.brands.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join(" <i>✦</i> ");
 
   /* ── expertise ── */
