@@ -2,8 +2,10 @@
 //  Edit this file to change the personal details and copy on the site.
 // ───────────────────────────────────────────────────────────────
 window.SITE = {
-  name: "Jolie",                // shown in the title, footer, "© Jolie 2026"
-  wordmark: "JOLIE",            // giant hero word (keep it short)
+  name: "Thanh Huyen",          // shown in the title, footer, "© Thanh Huyen 2026"
+  nickname: "Jolie",            // small line under the hero title: "call me Jolie"
+  heroLines: ["I’M THANH", "HUYEN"],  // giant hero title, one entry per line (the © follows the last line)
+  footWord: "JOLIE",            // giant word cropped at the very bottom of the page
   year: 2026,
   roles: ["Retoucher", "Art Director", "Photographer", "Designer"],
   email: "",                    // ⚠ add your real email, e.g. "you@gmail.com" (button stays hidden while empty)

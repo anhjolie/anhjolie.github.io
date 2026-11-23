@@ -15,10 +15,15 @@
   var copy = "© " + S.name + " " + S.year;
   $("#copy").textContent = copy; $("#footName").textContent = copy;
   $("#heroL").textContent = "Hello, I’m " + S.name + " — a " + S.roles[0].toLowerCase() + ", " + S.roles[2].toLowerCase() + " and " + S.roles[1].toLowerCase() + " shaping fashion, jewelry and beauty images.";
-  // giant wordmark: letters + ©
-  var wm = '<span>' + esc(S.wordmark) + '</span><span class="c">©</span>';
-  $("#wordmark").innerHTML = wm; $("#wordmark").setAttribute("aria-label", S.name);
-  $("#bigWord").innerHTML = wm;
+  // giant hero title: one block per line, © after the last one
+  $("#wordmark").innerHTML = S.heroLines.map(function (l, i) {
+    return '<span class="ln">' + esc(l) + (i === S.heroLines.length - 1 ? '<span class="c">©</span>' : "") + "</span>";
+  }).join("");
+  $("#wordmark").setAttribute("aria-label", "I’m " + S.name);
+  $("#alias").textContent = "call me " + S.nickname;
+  $("#bigWord").innerHTML = '<span>' + esc(S.footWord) + '</span><span class="c">©</span>';
+  var aboutName = $("#aboutName"); if (aboutName) aboutName.textContent = S.name;
+  var aboutNick = $("#aboutNick"); if (aboutNick) aboutNick.textContent = S.nickname;
   var mail = $("#mailBtn");
   if (S.email) { mail.hidden = false; mail.href = "mailto:" + S.email; mail.textContent = S.email; }
   var soc = [];
