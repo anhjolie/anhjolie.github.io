@@ -14,8 +14,11 @@ window.SITE = {
   phone: "",                    // optional, leave "" to hide
   available: true,
 
-  brands: ["JEMMIA", "HUBLOT", "Harper’s BAZAAR", "PNJ", "Paula’s Choice", "CAO Fine Jewellery", "ANJO",
-           "Lê Thanh Hoà", "TONNY", "MOORIS", "Glamdoll", "DATT", "THAT", "Ngọc Thẩm", "Cocolens"],
+  // [name shown, project it opens]
+  brands: [["JEMMIA", "jemmia"], ["HUBLOT", "hublot"], ["Harper’s BAZAAR", "harpers-bazaar"], ["PNJ", "pnj"],
+           ["Paula’s Choice", "paulas-choice"], ["CAO Fine Jewellery", "cao-fine"], ["ANJO", "anjo"],
+           ["Lê Thanh Hoà", "le-thanh-hoa"], ["TONNY", "tonny-show"], ["MOORIS", "mooris"], ["Glamdoll", "glamdoll"],
+           ["DATT", "datt"], ["THAT", "that"], ["Ngọc Thẩm", "ngoc-tham"], ["Cocolens", "cocolens"]],
 
   // img = photo number from tools/build_images.py (all warm gold/amber to match the yellow theme)
   expertise: [

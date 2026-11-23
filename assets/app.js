@@ -32,7 +32,9 @@
   $("#socials").innerHTML = soc.map(function (s) { return '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + "</a></li>"; }).join("");
 
   /* ── brands: typographic list ── */
-  $("#clients").innerHTML = S.brands.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join(" <i>✦</i> ");
+  $("#clients").innerHTML = S.brands.map(function (b) {
+    return bySlug[b[1]] ? '<a href="#project/' + b[1] + '" data-open="' + b[1] + '">' + esc(b[0]) + "</a>" : "<span>" + esc(b[0]) + "</span>";
+  }).join("");
 
   /* ── expertise ── */
   var icons = [
@@ -96,7 +98,7 @@
   addEventListener("scroll", spy, { passive: true }); spy();
 
   /* ── project dialog ── */
-  var dlg = $("#proj"), cur = null;
+  var dlg = $("#proj"), cur = null, pushed = false;
   function openProject(slug, pushHash) {
     var p = bySlug[slug]; if (!p) return;
     cur = p;
@@ -110,14 +112,24 @@
     $("#projNav").innerHTML = '<button data-open="' + prev.slug + '"><small>← Previous</small><b>' + esc(prev.title) + '</b></button><button data-open="' + next.slug + '"><small>Next →</small><b>' + esc(next.title) + "</b></button>";
     if (!dlg.open) { dlg.showModal(); document.documentElement.style.overflow = "hidden"; }
     dlg.scrollTop = 0;
-    if (pushHash !== false) history.replaceState(null, "", "#project/" + slug);
+    if (pushHash !== false) {
+      // first open pushes a history entry (so the browser Back button closes the project);
+      // moving between projects inside the dialog just replaces it
+      if (location.hash.indexOf("#project/") === 0) history.replaceState({ proj: 1 }, "", "#project/" + slug);
+      else { history.pushState({ proj: 1 }, "", "#project/" + slug); pushed = true; }
+    }
   }
   dlg.addEventListener("close", function () {
     document.documentElement.style.overflow = "";
     cur = null;
-    if (location.hash.indexOf("#project/") === 0) history.replaceState(null, "", location.pathname + location.search + "#work");
+    if (location.hash.indexOf("#project/") === 0) {
+      if (pushed) history.back();                       // return to exactly where the visitor was
+      else history.replaceState(null, "", location.pathname + location.search);
+    }
+    pushed = false;
   });
   $("#projClose").addEventListener("click", function () { if (dlg.open) dlg.close(); });
+  $("#projBack").addEventListener("click", function () { if (dlg.open) dlg.close(); });
   document.addEventListener("click", function (e) {
     var o = e.target.closest("[data-open]");
     if (o) { e.preventDefault(); openProject(o.dataset.open); }
@@ -150,7 +162,10 @@
     var m = location.hash.match(/^#project\/([\w-]+)/);
     if (m && bySlug[m[1]]) openProject(m[1], false);
   }
-  addEventListener("hashchange", function () { if (location.hash.indexOf("#project/") === 0) fromHash(); });
+  addEventListener("popstate", function () {
+    if (location.hash.indexOf("#project/") === 0) fromHash();
+    else if (dlg.open) { pushed = false; dlg.close(); }   // browser Back closes the project
+  });
 
   renderGrid(); observe(); fromHash();
 })();
