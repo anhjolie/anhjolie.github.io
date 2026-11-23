@@ -15,11 +15,12 @@ window.SITE = {
   brands: ["JEMMIA", "HUBLOT", "Harper’s BAZAAR", "PNJ", "Paula’s Choice", "CAO Fine Jewellery", "ANJO",
            "Lê Thanh Hoà", "TONNY", "MOORIS", "Glamdoll", "DATT", "THAT", "Ngọc Thẩm", "Cocolens"],
 
+  // img = photo number from tools/build_images.py (all warm gold/amber to match the yellow theme)
   expertise: [
-    { t: "Retouching", d: "High-end beauty, fashion and jewelry retouching — skin, fabric, metal and light refined without losing character." },
-    { t: "Art Direction", d: "Concepts, moodboards and styling direction that turn a brief into one clear visual world." },
-    { t: "Photography", d: "Campaign, lookbook and test-shoot imagery, shot and edited with a consistent eye." },
-    { t: "Design & Social", d: "Posters, invitations, LED visuals and social layouts that carry a campaign across every channel." }
+    { img: 327, t: "Retouching", d: "High-end beauty, fashion and jewelry retouching — skin, fabric, metal and light refined without losing character." },
+    { img: 299, t: "Art Direction", d: "Concepts, moodboards and styling direction that turn a brief into one clear visual world." },
+    { img: 9, t: "Photography", d: "Campaign, lookbook and test-shoot imagery, shot and edited with a consistent eye." },
+    { img: 51, t: "Design & Social", d: "Posters, invitations, LED visuals and social layouts that carry a campaign across every channel." }
   ],
 
   faq: [

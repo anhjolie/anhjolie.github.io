@@ -24,25 +24,25 @@ FULL_MAX = 2000   # lightbox (longest side)
 PROJECTS = [
     dict(slug="jemmia", title="JEMMIA", cats=["jewelry"], tags=["Jewelry", "Campaign"],
          blurb="Campaign imagery for a fine-jewelry house — editorial portraits, product stills and seasonal key visuals.",
-         cover=242, imgs=[238, 239, 240, 242, 244, 246, 248, 250, 251, 253, 254, 257, 261, 266, 267, 270, 283, 286, 290, 292]),
+         cover=290, imgs=[238, 239, 240, 242, 244, 246, 248, 250, 251, 253, 254, 257, 261, 266, 267, 270, 283, 286, 290, 292]),
     dict(slug="hublot", title="HUBLOT", cats=["jewelry", "editorial"], tags=["Watches", "Still life"],
          blurb="Conceptual watch visuals — lava, ash and cracked stone worlds built around each timepiece.",
          cover=54, imgs=[51, 52, 53, 54, 55, 56, 62, 63]),
     dict(slug="harpers-bazaar", title="Harper's Bazaar", cats=["editorial"], tags=["Editorial", "Still life"],
          blurb="Surreal accessory still lifes for the magazine — bags, shoes, eyewear and jewelry staged as small dreamscapes.",
-         cover=40, imgs=[34, 38, 40, 39, 42, 36, 37, 35, 31]),
+         cover=38, imgs=[34, 38, 40, 39, 42, 36, 37, 35, 31]),
     dict(slug="anjo", title="ANJO", cats=["fashion"], tags=["Couture", "Lookbook"],
          blurb="Couture collection imagery — sculpted gowns and tailoring against moody painterly backdrops.",
          cover=9, imgs=[0, 1, 2, 4, 7, 9, 10, 12, 15, 16, 17, 18, 19, 21, 22, 25]),
     dict(slug="cao-fine", title="CAO Fine Jewellery", cats=["jewelry"], tags=["Jewelry", "Retouch"],
          blurb="High-jewelry portraits and product retouching in a deep emerald palette.",
-         cover=80, imgs=[80, 83, 84, 85, 88, 90, 91, 92, 94, 95, 100, 102, 103, 105, 107]),
+         cover=84, imgs=[80, 83, 84, 85, 88, 90, 91, 92, 94, 95, 100, 102, 103, 105, 107]),
     dict(slug="nhu-nguyet", title="Như Nguyệt", cats=["fashion", "editorial"], tags=["Concept", "Editorial"],
          blurb="A fantasy editorial — red silk, sculpted armor and chain-mail under a burning sky.",
          cover=173, imgs=[169, 171, 173, 175, 176, 178, 180, 181, 184, 187, 189, 191, 195, 196, 197]),
     dict(slug="le-thanh-hoa", title="Lê Thanh Hoà", cats=["fashion", "editorial"], tags=["Lookbook", "Show"],
          blurb="Lookbook, runway-show and editorial images for the designer's seasonal collections.",
-         cover=297, imgs=[313, 314, 315, 316, 317, 319, 320, 322, 323, 326, 327, 328, 296, 297, 298, 299, 301, 302, 304, 307, 310, 311]),
+         cover=313, imgs=[313, 314, 315, 316, 317, 319, 320, 322, 323, 326, 327, 328, 296, 297, 298, 299, 301, 302, 304, 307, 310, 311]),
     dict(slug="glamdoll", title="Glamdoll", cats=["fashion"], tags=["Fashion", "Retouch"],
          blurb="Fashion e-commerce and campaign images across two seasons — studio reds and garden pinks.",
          cover=206, imgs=[200, 201, 202, 204, 206, 207, 209, 210, 212, 213, 215, 216, 217, 219, 221, 223, 224, 225]),
@@ -69,10 +69,10 @@ PROJECTS = [
          cover=66, imgs=list(range(64, 72))),
     dict(slug="ngoc-tham", title="Ngọc Thẩm Jewelry", cats=["jewelry", "beauty"], tags=["Jewelry", "Beauty"],
          blurb="Delicate everyday jewelry on hands, necks and faces.",
-         cover=346, imgs=list(range(346, 352))),
+         cover=348, imgs=list(range(346, 352))),
     dict(slug="paulas-choice", title="Paula's Choice", cats=["beauty", "design"], tags=["Skincare", "Product"],
          blurb="Skincare product imagery and campaign layouts in a soft lilac palette.",
-         cover=353, imgs=[353, 354, 355, 356, 352]),
+         cover=356, imgs=[353, 354, 355, 356, 352]),
     dict(slug="pnj", title="PNJ", cats=["jewelry"], tags=["Jewelry", "Campaign"],
          blurb="Family-themed jewelry campaign portraits.",
          cover=358, imgs=[357, 358, 359]),
@@ -92,6 +92,10 @@ PROJECTS = [
          blurb="Storyboard frames for a fashion-film concept built around red.",
          cover=417, imgs=[417, 418, 419]),
 ]
+
+# Projects shown first (in this order); everything else keeps the order above
+FIRST = ["cao-fine", "jemmia", "harpers-bazaar", "ngoc-tham", "paulas-choice", "le-thanh-hoa"]
+PROJECTS.sort(key=lambda p: FIRST.index(p["slug"]) if p["slug"] in FIRST else len(FIRST))
 
 CATEGORIES = [("all", "All"), ("fashion", "Fashion"), ("jewelry", "Jewelry & Watches"),
               ("beauty", "Beauty"), ("editorial", "Editorial"), ("design", "Design & Social")]
@@ -152,7 +156,12 @@ def main():
         ci = p["imgs"].index(p["cover"])
         out.append(dict(slug=p["slug"], title=p["title"], cats=p["cats"], tags=p["tags"],
                         blurb=p["blurb"], cover=ci, images=images))
-    js = "window.PROJECTS = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n"
+    by_index = {}
+    for p, o in zip(PROJECTS, out):
+        for idx, im in zip(p["imgs"], o["images"]):
+            by_index.setdefault(str(idx), im)
+    js = "window.IMG = " + json.dumps(by_index, ensure_ascii=False) + ";\n"
+    js += "window.PROJECTS = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n"
     js += "window.CATEGORIES = " + json.dumps([list(c) for c in CATEGORIES], ensure_ascii=False) + ";\n"
     open(os.path.join(ROOT, "assets", "projects.js"), "w").write(js)
     print(f"{len(jobs)} images, {len(PROJECTS)} projects")

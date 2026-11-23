@@ -40,7 +40,9 @@
     '<path d="M4 5h16v10H4zM8 19h8M12 15v4" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
   ];
   $("#expertise").innerHTML = S.expertise.map(function (e, i) {
-    return '<article class="card-x reveal"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24">' + icons[i % icons.length] + '</svg></span><div><h3>' + esc(e.t) + "</h3><p>" + esc(e.d) + "</p></div></article>";
+    var im = window.IMG && window.IMG[e.img];
+    var pic = im ? '<div class="pic"><img src="' + im.t + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="lazy"></div>' : "";
+    return '<article class="card-x reveal">' + pic + '<span class="ico"><svg width="18" height="18" viewBox="0 0 24 24">' + icons[i % icons.length] + '</svg></span><div class="txt"><h3>' + esc(e.t) + "</h3><p>" + esc(e.d) + "</p></div></article>";
   }).join("");
 
   /* ── faq ── */
