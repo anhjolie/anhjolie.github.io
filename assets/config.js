@@ -22,10 +22,22 @@ window.SITE = {
 
   // img = photo number from tools/build_images.py (all warm gold/amber to match the yellow theme)
   expertise: [
-    { img: 327, t: "Retouching", d: "High-end beauty, fashion and jewelry retouching — skin, fabric, metal and light refined without losing character." },
-    { img: 299, t: "Art Direction", d: "Concepts, moodboards and styling direction that turn a brief into one clear visual world." },
-    { img: 9, t: "Photography", d: "Campaign, lookbook and test-shoot imagery, shot and edited with a consistent eye." },
-    { img: 51, t: "Design & Social", d: "Posters, invitations, LED visuals and social layouts that carry a campaign across every channel." }
+    { img: 327, slug: "retouching", t: "Retouching",
+      blurb: "Skin, fabric, metal and light, refined without losing character — from beauty portraits and jewelry close-ups to before / after retouching pairs.",
+      gallery: [72, 76, 73, 77, 74, 78, 64, 66, 68, 70, 80, 84, 88, 90, 92, 94, 95, 100, 102, 103, 348, 350, 346, 242, 266, 286],
+      d: "High-end beauty, fashion and jewelry retouching — skin, fabric, metal and light refined without losing character." },
+    { img: 299, slug: "art-direction", t: "Art Direction",
+      blurb: "Concepts and visual worlds built from a brief — surreal still lifes, fantasy editorials and sculptural fashion stories.",
+      gallery: [173, 176, 181, 187, 191, 197, 34, 38, 40, 39, 42, 36, 52, 54, 55, 296, 297, 298, 299, 311, 155, 157, 161, 163, 166],
+      d: "Concepts, moodboards and styling direction that turn a brief into one clear visual world." },
+    { img: 9, slug: "photography", t: "Photography",
+      blurb: "Test shoots, lookbooks and campaign frames — hard light, clean studio sets and painterly backdrops.",
+      gallery: [432, 433, 434, 435, 436, 437, 438, 439, 440, 424, 427, 429, 430, 0, 4, 9, 12, 17, 21, 202, 206, 217, 224, 449, 471, 333, 339],
+      d: "Campaign, lookbook and test-shoot imagery, shot and edited with a consistent eye." },
+    { img: 51, slug: "design-social", t: "Design & Social",
+      blurb: "Posters, invitations, LED visuals, storyboards and social layouts that carry a campaign across every channel.",
+      gallery: [412, 413, 415, 416, 410, 374, 360, 361, 373, 109, 110, 417, 418, 419, 239, 251, 253, 254, 250, 352, 52, 53, 51],
+      d: "Posters, invitations, LED visuals and social layouts that carry a campaign across every channel." }
   ],
 
   faq: [

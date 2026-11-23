@@ -43,10 +43,20 @@
     '<rect x="3.5" y="7" width="17" height="12" rx="3" stroke="#000" stroke-width="1.7" fill="none"/><circle cx="12" cy="13" r="3.2" stroke="#000" stroke-width="1.7" fill="none"/><path d="M8.5 7 10 4.5h4L15.5 7" stroke="#000" stroke-width="1.7" stroke-linejoin="round" fill="none"/>',
     '<path d="M4 5h16v10H4zM8 19h8M12 15v4" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
   ];
+  var skills = [];
+  S.expertise.forEach(function (e) {
+    var imgs = (e.gallery || []).map(function (n) { return window.IMG && window.IMG[n]; }).filter(Boolean);
+    if (!e.slug || !imgs.length) return;
+    var sp = { slug: "skill-" + e.slug, title: e.t, tags: ["Selected work"], blurb: e.blurb || e.d, images: imgs, skill: true };
+    skills.push(sp); bySlug[sp.slug] = sp;
+  });
   $("#expertise").innerHTML = S.expertise.map(function (e, i) {
     var im = window.IMG && window.IMG[e.img];
     var pic = im ? '<div class="pic"><img src="' + im.t + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="lazy"></div>' : "";
-    return '<article class="card-x reveal">' + pic + '<span class="ico"><svg width="18" height="18" viewBox="0 0 24 24">' + icons[i % icons.length] + '</svg></span><div class="txt"><h3>' + esc(e.t) + "</h3><p>" + esc(e.d) + "</p></div></article>";
+    var inner = pic + '<span class="ico"><svg width="18" height="18" viewBox="0 0 24 24">' + icons[i % icons.length] + '</svg></span><div class="txt"><h3>' + esc(e.t) + "</h3><p>" + esc(e.d) + '</p>' + (bySlug["skill-" + e.slug] ? '<span class="more-link">View selected work →</span>' : "") + "</div>";
+    return bySlug["skill-" + e.slug]
+      ? '<a class="card-x reveal" href="#project/skill-' + e.slug + '" data-open="skill-' + e.slug + '">' + inner + "</a>"
+      : '<article class="card-x reveal">' + inner + "</article>";
   }).join("");
 
   /* ── faq ── */
@@ -108,7 +118,8 @@
     $("#gal").innerHTML = p.images.map(function (im, i) {
       return '<button class="g-item" data-i="' + i + '" aria-label="View image ' + (i + 1) + '"><img src="' + im.t + '" width="' + im.w + '" height="' + im.h + '" alt="' + esc(p.title) + " — image " + (i + 1) + '" loading="lazy"></button>';
     }).join("");
-    var idx = P.indexOf(p), prev = P[(idx - 1 + P.length) % P.length], next = P[(idx + 1) % P.length];
+    var group = p.skill ? skills : P;
+    var idx = group.indexOf(p), prev = group[(idx - 1 + group.length) % group.length], next = group[(idx + 1) % group.length];
     $("#projNav").innerHTML = '<button data-open="' + prev.slug + '"><small>← Previous</small><b>' + esc(prev.title) + '</b></button><button data-open="' + next.slug + '"><small>Next →</small><b>' + esc(next.title) + "</b></button>";
     if (!dlg.open) { dlg.showModal(); document.documentElement.style.overflow = "hidden"; }
     dlg.scrollTop = 0;
@@ -128,7 +139,6 @@
     }
     pushed = false;
   });
-  $("#projClose").addEventListener("click", function () { if (dlg.open) dlg.close(); });
   $("#projBack").addEventListener("click", function () { if (dlg.open) dlg.close(); });
   document.addEventListener("click", function (e) {
     var o = e.target.closest("[data-open]");
