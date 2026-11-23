@@ -4,51 +4,52 @@
 
   var S = window.SITE, P = window.PROJECTS, C = window.CATEGORIES;
   var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var bySlug = {}; P.forEach(function (p) { bySlug[p.slug] = p; });
   var cover = function (p) { return p.images[p.cover]; };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-  var INITIAL = 9;
+  var INITIAL = 6;
 
   /* ── personal details from config ── */
   document.title = S.name + " — " + S.roles[0] + " & " + S.roles[1];
-  $("#logo").textContent = S.name;
-  $("#footName").textContent = S.name;
-  $("#firstName").textContent = S.firstName;
-  $("#year").textContent = new Date().getFullYear();
-  $("#avail").hidden = !S.available;
+  var copy = "© " + S.name + " " + S.year;
+  $("#copy").textContent = copy; $("#footName").textContent = copy;
+  $("#heroL").textContent = "Hello, I’m " + S.name + " — a " + S.roles[0].toLowerCase() + ", " + S.roles[2].toLowerCase() + " and " + S.roles[1].toLowerCase() + " shaping fashion, jewelry and beauty images.";
+  // giant wordmark: letters + ©
+  var wm = '<span>' + esc(S.wordmark) + '</span><span class="c">©</span>';
+  $("#wordmark").innerHTML = wm; $("#wordmark").setAttribute("aria-label", S.name);
+  $("#bigWord").innerHTML = wm;
   var mail = $("#mailBtn");
-  if (!S.email || /example\.com$/.test(S.email)) { mail.hidden = true; }   // hide until a real email is set in config.js
-  else { mail.href = "mailto:" + S.email; mail.textContent = S.email; }
+  if (S.email) { mail.hidden = false; mail.href = "mailto:" + S.email; mail.textContent = S.email; }
   var soc = [];
   if (S.instagram) soc.push(["Instagram", S.instagram]);
   if (S.behance) soc.push(["Behance", S.behance]);
   if (S.phone) soc.push([S.phone, "tel:" + S.phone.replace(/\s/g, "")]);
   $("#socials").innerHTML = soc.map(function (s) { return '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + "</a></li>"; }).join("");
 
-  /* ── hero ── */
-  var hp = bySlug[S.heroSlug] || P[0];
-  $("#heroPhoto").innerHTML = '<img src="' + cover(hp).t + '" width="' + cover(hp).w + '" height="' + cover(hp).h + '" alt="' + esc(hp.title) + ' — featured image" fetchpriority="high">';
-  $("#avatars").innerHTML = S.avatarSlugs.map(function (s) { return bySlug[s] ? '<img src="' + cover(bySlug[s]).t + '" alt="" width="42" height="42">' : ""; }).join("");
+  /* ── brands: marquee + typographic list ── */
+  var mq = S.brands.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join("");
+  $("#brandTrack").innerHTML = mq + mq;
+  $("#clients").innerHTML = S.brands.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join(" <i>✦</i> ");
 
-  // rotating role word
-  var roleEl = $("#role"), ri = 0;
-  roleEl.textContent = S.roles[0];
-  if (S.roles.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setInterval(function () {
-      roleEl.classList.add("out");
-      setTimeout(function () { ri = (ri + 1) % S.roles.length; roleEl.textContent = S.roles[ri]; roleEl.classList.remove("out"); }, 450);
-    }, 2600);
-  }
-
-  /* ── brand marquee ── */
-  var brandHTML = S.brands.map(function (b) { return '<span class="brand ' + b[1] + '">' + esc(b[0]) + "</span>"; }).join("");
-  $("#brandTrack").innerHTML = brandHTML + brandHTML;
-
-  /* ── recent works wall ── */
-  $("#wallCols").innerHTML = S.wallSlugs.filter(function (s) { return bySlug[s]; }).map(function (s) {
-    var p = bySlug[s], c = cover(p);
-    return '<a href="#project/' + p.slug + '" data-open="' + p.slug + '" aria-label="' + esc(p.title) + '"><img src="' + c.t + '" width="' + c.w + '" height="' + c.h + '" alt="' + esc(p.title) + '" loading="lazy"></a>';
+  /* ── expertise ── */
+  var icons = [
+    '<path d="M4 20 20 4M9 4h11v11" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    '<circle cx="12" cy="12" r="3" stroke="#000" stroke-width="1.7" fill="none"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="#000" stroke-width="1.7" stroke-linecap="round"/>',
+    '<rect x="3.5" y="7" width="17" height="12" rx="3" stroke="#000" stroke-width="1.7" fill="none"/><circle cx="12" cy="13" r="3.2" stroke="#000" stroke-width="1.7" fill="none"/><path d="M8.5 7 10 4.5h4L15.5 7" stroke="#000" stroke-width="1.7" stroke-linejoin="round" fill="none"/>',
+    '<path d="M4 5h16v10H4zM8 19h8M12 15v4" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+  ];
+  $("#expertise").innerHTML = S.expertise.map(function (e, i) {
+    return '<article class="card-x reveal"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24">' + icons[i % icons.length] + '</svg></span><div><h3>' + esc(e.t) + "</h3><p>" + esc(e.d) + "</p></div></article>";
   }).join("");
+
+  /* ── faq ── */
+  $("#faq").innerHTML = S.faq.map(function (f, i) {
+    return "<details" + (i === 0 ? " open" : "") + "><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>";
+  }).join("");
+  $$("#faq details").forEach(function (d) {
+    d.addEventListener("toggle", function () { if (d.open) $$("#faq details").forEach(function (o) { if (o !== d) o.open = false; }); });
+  });
 
   /* ── work grid ── */
   var filter = "all", expanded = false;
@@ -60,42 +61,35 @@
     var shown = expanded ? list : list.slice(0, INITIAL);
     gEl.innerHTML = shown.map(function (p) {
       var c = cover(p);
-      return '<article class="card reveal"><a class="card-btn" href="#project/' + p.slug + '" data-open="' + p.slug + '">' +
+      return '<a class="card reveal" href="#project/' + p.slug + '" data-open="' + p.slug + '">' +
         '<div class="card-media"><img src="' + c.t + '" width="' + c.w + '" height="' + c.h + '" alt="' + esc(p.title) + '" loading="lazy"><span class="count">' + p.images.length + ' images</span></div>' +
-        '<div class="card-meta"><h3>' + esc(p.title) + '</h3><div class="pills">' + p.tags.map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("") + "</div></div></a></article>";
+        "<h3>" + esc(p.title) + '</h3><p class="cat">' + p.tags.map(esc).join(" • ") + "</p></a>";
     }).join("");
     moreBtn.hidden = expanded || list.length <= INITIAL;
-    moreBtn.textContent = "Show all " + list.length + " projects";
     observe();
   }
   fEl.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     filter = b.dataset.f; expanded = false;
-    fEl.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-selected", x === b); });
+    $$("button", fEl).forEach(function (x) { x.setAttribute("aria-selected", x === b); });
     renderGrid();
   });
   moreBtn.addEventListener("click", function () { expanded = true; renderGrid(); });
 
-  /* ── scroll reveal + nav state ── */
+  /* ── scroll reveal + nav spy ── */
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { rootMargin: "0px 0px -8% 0px", threshold: .08 }) : null;
-  function observe() {
-    document.querySelectorAll(".reveal:not(.in)").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
-  }
-  var nav = $("#nav");
-  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 40); }
-  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  }, { rootMargin: "0px 0px -8% 0px", threshold: .06 }) : null;
+  function observe() { $$(".reveal:not(.in)").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); }); }
 
-  /* ── menu ── */
-  var menu = $("#menu"), mbtn = $("#menuBtn");
-  function setMenu(open) {
-    menu.hidden = !open; mbtn.setAttribute("aria-expanded", open); mbtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.documentElement.style.overflow = open ? "hidden" : "";
+  var links = $$(".pill a"), spyIds = ["top", "about", "work", "contact"];
+  function spy() {
+    var y = window.scrollY + window.innerHeight * .35, cur = "top";
+    spyIds.forEach(function (id) { var el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) cur = "contact";
+    links.forEach(function (a) { a.classList.toggle("active", a.dataset.s === cur); });
   }
-  mbtn.addEventListener("click", function () { setMenu(menu.hidden); });
-  menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
-  addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) setMenu(false); });
+  addEventListener("scroll", spy, { passive: true }); spy();
 
   /* ── project dialog ── */
   var dlg = $("#proj"), cur = null;
@@ -114,16 +108,12 @@
     dlg.scrollTop = 0;
     if (pushHash !== false) history.replaceState(null, "", "#project/" + slug);
   }
-  function closeProject() {
-    if (dlg.open) dlg.close();
-  }
   dlg.addEventListener("close", function () {
     document.documentElement.style.overflow = "";
     cur = null;
     if (location.hash.indexOf("#project/") === 0) history.replaceState(null, "", location.pathname + location.search + "#work");
   });
-  $("#projClose").addEventListener("click", closeProject);
-
+  $("#projClose").addEventListener("click", function () { if (dlg.open) dlg.close(); });
   document.addEventListener("click", function (e) {
     var o = e.target.closest("[data-open]");
     if (o) { e.preventDefault(); openProject(o.dataset.open); }
@@ -138,8 +128,7 @@
     var im = cur.images[vi];
     $("#vImg").src = im.f; $("#vImg").alt = cur.title + " — image " + (vi + 1);
     $("#vCount").textContent = (vi + 1) + " / " + cur.images.length;
-    // preload neighbours
-    [1, -1].forEach(function (d) { var n = cur.images[(vi + d + cur.images.length) % cur.images.length]; (new Image()).src = n.f; });
+    [1, -1].forEach(function (d) { (new Image()).src = cur.images[(vi + d + cur.images.length) % cur.images.length].f; });
   }
   function openViewer(i) { vi = i; showV(); if (!vw.open) vw.showModal(); }
   function step(d) { vi = (vi + d + cur.images.length) % cur.images.length; showV(); }

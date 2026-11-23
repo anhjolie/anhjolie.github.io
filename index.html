@@ -3,140 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anh Jolie — Retoucher & Art Director</title>
-<meta name="description" content="Portfolio of Anh Jolie — retouching, art direction, photography and design for fashion, jewelry and beauty brands.">
+<title>Jolie — Retoucher & Art Director</title>
+<meta name="description" content="Portfolio of Jolie — retouching, art direction, photography and design for fashion, jewelry and beauty brands.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
 <!-- NAV -->
-<header class="nav" id="nav">
-  <a class="logo" href="#top" id="logo">Anh Jolie</a>
-  <nav class="nav-links" aria-label="Primary">
-    <a href="#work">Work</a><a href="#about">About</a><a href="#process">Process</a><a href="#contact">Contact</a>
-  </nav>
-  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
-    <span></span><span></span>
-  </button>
-</header>
+<nav class="pill" id="pill" aria-label="Primary">
+  <a href="#top" class="active" data-s="top"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 7.2 8 2.5l5.5 4.7V13a.5.5 0 0 1-.5.5h-3v-4H6v4H3a.5.5 0 0 1-.5-.5V7.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Home</a>
+  <a href="#about" data-s="about">About</a>
+  <a href="#work" data-s="work">Projects</a>
+  <a href="#contact" data-s="contact">Contact</a>
+</nav>
 
-<div class="menu" id="menu" hidden>
-  <nav aria-label="Menu">
-    <a href="#work"><i>01</i>Work</a>
-    <a href="#about"><i>02</i>About</a>
-    <a href="#process"><i>03</i>Process</a>
-    <a href="#contact"><i>04</i>Contact</a>
-  </nav>
-</div>
-
-<main id="top">
+<main>
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="wrap hero-inner">
-      <p class="badge"><span class="badge-dot"></span>Selected work 2025 – 2026</p>
-      <h1>
-        <span class="l1">Hi, I’m <span id="firstName">Anh</span></span>
-        <span class="l2"><span id="role">Retoucher</span></span>
-      </h1>
-
-      <div class="hero-grid">
-        <div class="hero-left">
-          <p class="avail" id="avail"><span></span>Available for new projects</p>
-          <div class="trust">
-            <div class="avatars" id="avatars"></div>
-            <p>Imagery for <b>15+ brands</b> across fashion, jewelry &amp; beauty.</p>
-          </div>
-        </div>
-
-        <a class="hero-photo" id="heroPhoto" href="#work" aria-label="See selected work"></a>
-
-        <div class="hero-right">
-          <p class="tagline">Fashion, jewelry and beauty images — shaped with careful retouching, art direction and design.</p>
-          <a class="btn btn-dark" href="#contact"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Get in touch</a>
-        </div>
-      </div>
-    </div>
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <h1 class="wordmark" id="wordmark" aria-label="Jolie"></h1>
+    <img class="cutout" src="assets/avatar.png" width="484" height="1600" alt="Portrait of Jolie" fetchpriority="high">
+    <p class="hero-l" id="heroL">Hello, I’m Jolie — a retoucher, photographer and art director shaping fashion, jewelry and beauty images.</p>
+    <p class="hero-r">I bring brand stories to life through careful retouching, art direction and design, from campaigns to runway shows.</p>
+    <div class="hero-foot"><span id="copy">© Jolie 2026</span><a href="#about">(Scroll down)</a></div>
   </section>
 
   <!-- BRANDS -->
-  <section class="brands" aria-label="Brands">
+  <section class="strip" aria-label="Brands">
     <div class="marquee"><div class="marquee-track" id="brandTrack"></div></div>
-  </section>
-
-  <!-- RECENT WORK WALL -->
-  <section class="wall-sec">
-    <div class="wrap">
-      <div class="wall" id="wall">
-        <div class="wall-cols" id="wallCols"></div>
-        <div class="wall-fade"></div>
-        <a class="wall-chip" href="#work">Seen Recent Works</a>
-      </div>
-    </div>
   </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
-    <div class="wrap about-inner">
-      <p class="hello serif reveal">Hello!</p>
-      <p class="statement reveal">My focus is on blending refined retouching, thoughtful art direction and clean design to <span class="fade">craft images that make fashion, jewelry and beauty brands feel unmistakable.</span></p>
-      <ul class="chips" aria-label="Skills">
-        <li style="--c:#ff7a59">Retouching</li>
-        <li style="--c:#3b82f6">Art Direction</li>
-        <li style="--c:#111">Photography</li>
-        <li style="--c:#f2548d">Lookbooks</li>
-        <li style="--c:#f5b301">Jewelry &amp; Watches</li>
-        <li style="--c:#22b07d">Social Design</li>
-        <li style="--c:#8b5cf6">Event Visuals</li>
-        <li style="--c:#ef4444">Brand Imagery</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="process" id="process">
-    <div class="wrap">
-      <header class="sec-head reveal">
-        <p class="eyebrow serif">/ My process</p>
-        <h2>Here’s how it works</h2>
-      </header>
-      <div class="steps">
-        <svg class="curve c1" viewBox="0 0 200 90" fill="none" aria-hidden="true"><path d="M4 80C40 10 120 -10 196 20" stroke="var(--accent-line)" stroke-width="1.6"/><circle cx="4" cy="80" r="4" fill="var(--accent-line)"/><circle cx="196" cy="20" r="4" fill="var(--accent-line)"/></svg>
-        <svg class="curve c2" viewBox="0 0 200 90" fill="none" aria-hidden="true"><path d="M4 20C60 90 140 90 196 40" stroke="var(--accent-line)" stroke-width="1.6"/><circle cx="4" cy="20" r="4" fill="var(--accent-line)"/><circle cx="196" cy="40" r="4" fill="var(--accent-line)"/></svg>
-        <article class="step reveal"><span class="num">01</span><div><h3>Discover</h3><p>Briefs, moodboards and references first — so every image starts from the brand’s goals, not from guesswork.</p></div></article>
-        <article class="step reveal"><span class="num">02</span><div><h3>Create</h3><p>Art direction, shoot support, compositing and detailed retouching, shaped frame by frame.</p></div></article>
-        <article class="step reveal"><span class="num">03</span><div><h3>Deliver</h3><p>Final files sized for print, web and social, with tidy handover and fast revisions.</p></div></article>
+    <div class="wrap about-grid">
+      <div class="about-l reveal">
+        <p class="label">(About me)</p>
+        <h2>Where fashion, jewelry and beauty meet careful craft</h2>
+        <ul class="facts">
+          <li><b>23</b><span>featured projects</span></li>
+          <li><b>15+</b><span>brands &amp; designers</span></li>
+          <li><b>4</b><span>disciplines</span></li>
+        </ul>
+      </div>
+      <div class="about-r reveal">
+        <figure class="about-photo"><img src="assets/avatar.png" width="484" height="1600" alt="Jolie" loading="lazy"></figure>
+        <p>Hello, I’m Jolie — a retoucher, photographer and art director working across fashion, jewelry and beauty. I love the moment an image stops being “almost there” and starts to feel inevitable: the right light on a gemstone, the fall of a silk hem, the colour that holds a whole campaign together.</p>
+        <p>My work spans brand campaigns, lookbooks, editorial stills, runway-show visuals and social design. Whatever the format, I care about the same things — a clear idea, careful execution, and images that feel unmistakably like the brand they belong to.</p>
+        <p>I’ve been lucky to collaborate with jewelers, fashion labels, beauty brands and designers, and I’m always keen to take on the next story worth telling.</p>
       </div>
     </div>
   </section>
 
-  <!-- WORK -->
-  <section class="work" id="work">
+  <!-- EXPERTISE -->
+  <section class="expertise">
     <div class="wrap">
-      <header class="sec-head reveal">
-        <p class="eyebrow serif">/ Best projects</p>
-        <h2>Selected Works</h2>
-      </header>
+      <div class="head-row reveal">
+        <div><p class="label">(What I do)</p><h2>I Have Expertise to Tackle Challenges</h2></div>
+        <p class="side-note">From a single retouched frame to a full campaign, these are the areas I bring to every project.</p>
+      </div>
+      <div class="cards" id="expertise"></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work-sec" id="work">
+    <div class="work">
+      <h2 class="big">My Best Projects</h2>
+      <div class="work-top">
+        <p>Fashion campaigns, jewelry and watch visuals, beauty portraits and show design — a selection from 2025 – 2026.</p>
+        <button class="chip-btn" id="moreBtn">See More Works <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       <div class="filters" id="filters" role="tablist" aria-label="Filter projects"></div>
       <div class="grid" id="grid"></div>
-      <div class="more"><button class="btn btn-light" id="moreBtn" hidden>Show all projects</button></div>
+    </div>
+  </section>
+
+  <!-- BRANDS (typographic) -->
+  <section class="clients">
+    <div class="wrap">
+      <p class="label reveal">(Brands &amp; clients)</p>
+      <p class="clients-list reveal" id="clients"></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap faq-grid">
+      <div class="reveal">
+        <h2>Frequently Asked Question</h2>
+        <p class="side-note">Here are some common questions along with my answers.</p>
+      </div>
+      <div class="acc reveal" id="faq"></div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
+    <div class="contact-bg" aria-hidden="true"></div>
     <div class="wrap contact-inner">
-      <p class="eyebrow serif">/ Let’s talk</p>
-      <h2>Have a project in mind?<br><span class="serif">Let’s make it beautiful.</span></h2>
-      <a class="btn btn-dark btn-lg" id="mailBtn" href="#">Say hello</a>
+      <p class="label">(Contact)</p>
+      <h2>Let’s create something together</h2>
+      <a class="btn" id="mailBtn" href="#" hidden></a>
       <ul class="socials" id="socials"></ul>
     </div>
+    <div class="big-word" id="bigWord" aria-hidden="true"></div>
     <footer class="foot wrap">
-      <span id="footName">Anh Jolie</span>
-      <span>© <span id="year"></span> · All images belong to their respective clients.</span>
+      <span id="footName">© Jolie 2026</span>
+      <span>All images belong to their respective clients.</span>
       <a href="#top">Back to top ↑</a>
     </footer>
   </section>
@@ -151,7 +127,7 @@
   </div>
   <div class="proj-body">
     <header class="proj-head">
-      <p class="eyebrow" id="projTags"></p>
+      <p class="label" id="projTags"></p>
       <h2 id="projTitle"></h2>
       <p class="proj-blurb" id="projBlurb"></p>
     </header>
